@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/Chivapchichi2/cp-1/static/css/main.2ae47eeb.chunk.css",
+    "main.js": "/Chivapchichi2/cp-1/static/js/main.4eb6a52c.chunk.js",
+    "main.js.map": "/Chivapchichi2/cp-1/static/js/main.4eb6a52c.chunk.js.map",
+    "runtime-main.js": "/Chivapchichi2/cp-1/static/js/runtime-main.07af4560.js",
+    "runtime-main.js.map": "/Chivapchichi2/cp-1/static/js/runtime-main.07af4560.js.map",
+    "static/css/2.32c1ecfd.chunk.css": "/Chivapchichi2/cp-1/static/css/2.32c1ecfd.chunk.css",
+    "static/js/2.1b837ddf.chunk.js": "/Chivapchichi2/cp-1/static/js/2.1b837ddf.chunk.js",
+    "static/js/2.1b837ddf.chunk.js.map": "/Chivapchichi2/cp-1/static/js/2.1b837ddf.chunk.js.map",
+    "index.html": "/Chivapchichi2/cp-1/index.html",
+    "static/css/2.32c1ecfd.chunk.css.map": "/Chivapchichi2/cp-1/static/css/2.32c1ecfd.chunk.css.map",
+    "static/css/main.2ae47eeb.chunk.css.map": "/Chivapchichi2/cp-1/static/css/main.2ae47eeb.chunk.css.map",
+    "static/js/2.1b837ddf.chunk.js.LICENSE.txt": "/Chivapchichi2/cp-1/static/js/2.1b837ddf.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.07af4560.js",
+    "static/css/2.32c1ecfd.chunk.css",
+    "static/js/2.1b837ddf.chunk.js",
+    "static/css/main.2ae47eeb.chunk.css",
+    "static/js/main.4eb6a52c.chunk.js"
+  ]
+}
