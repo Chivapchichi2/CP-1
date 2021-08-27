@@ -1,14 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import Counter from "./components/counter";
+import Counters from "./components/counters";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "./index.css";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Counter />
+    <Counters />
   </React.StrictMode>,
   document.getElementById("root")
 );
