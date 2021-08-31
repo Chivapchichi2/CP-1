@@ -42,7 +42,7 @@ const App = () => {
       {users.length > 0 && (
         <Users users={getPartOfUsers()} onDelete={handleDelete} onStatusClick={handleToggleBookMarc} />
       )}
-      {users.length > 0 && (
+      {users.length > 0 && totalPages > 1 && (
         <Pagination totalPages={totalPages} currentPage={currentPage} handlePaginationClick={handlePaginationClick} />
       )}
     </>
