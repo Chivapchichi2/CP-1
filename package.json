@@ -16,7 +16,7 @@
   "homepage": "https://chivapchichi2.github.io/cp-1/",
   "scripts": {
     "predeploy": "npm run build",
-    "deploy": "netlify deploy -p",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
