@@ -10,6 +10,7 @@ const App = () => {
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [profession, setProfession] = useState();
+  const [activeItem, setActiveItem] = useState();
 
   useEffect(() => {
     Api.users.fetchAll().then(setUsers);
@@ -19,7 +20,7 @@ const App = () => {
   }, []);
 
   const paginationOption = 2;
-  const totalPages = Math.ceil(users.length / paginationOption);
+  let totalPages = Math.ceil(users.length / paginationOption);
 
   const handleDelete = id => {
     setUsers(users.filter(el => el._id !== id));
@@ -42,19 +43,34 @@ const App = () => {
     setCurrentPage(+e.target.textContent);
   };
   const getPartOfUsers = () => {
-    const partOfUsers = [...users].splice(
+    const filteredUsers = activeItem
+      ? users.filter(
+          el => JSON.stringify(el.profession) === JSON.stringify(activeItem),
+        )
+      : users;
+    totalPages = Math.ceil(filteredUsers.length / paginationOption);
+    const partOfUsers = [...filteredUsers].splice(
       (currentPage - 1) * paginationOption,
       paginationOption,
     );
     if (!partOfUsers.length) setCurrentPage(currentPage - 1);
     return partOfUsers;
   };
-  const handleItemSelect = () => {};
+  const handleItemSelect = item => {
+    setActiveItem(item);
+    setCurrentPage(1);
+  };
 
   return (
     <div className="d-flex flex-column">
       <div className="d-flex flex-shrink-0 p-3">
-        <GroupList items={profession} onItemSelect={handleItemSelect} />
+        {profession && (
+          <GroupList
+            items={profession}
+            onItemSelect={handleItemSelect}
+            itemSelected={activeItem}
+          />
+        )}
         <div className="d-flex flex-column ms-5">
           <SearchStatus length={users.length} />
           {users?.length > 0 && (
