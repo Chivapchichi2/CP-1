@@ -1,35 +1,19 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-import User from './user';
+import Table from './table';
 
-const Users = ({ users, ...rest }) => (
-  <>
-    {users.length > 0 && (
-      <table className="table">
-        <thead>
-          <tr>
-            <th scope="col">Имя</th>
-            <th scope="col">Качества</th>
-            <th scope="col">Профессия</th>
-            <th scope="col">Встретился, раз</th>
-            <th scope="col">Оценка</th>
-            <th scope="col">Избранное</th>
-            <th scope="col" aria-label="delete button" />
-          </tr>
-        </thead>
-        <tbody>
-          {users.map(user => (
-            <User key={user._id} {...rest} {...user} />
-          ))}
-        </tbody>
-      </table>
-    )}
-  </>
-);
+const Users = ({ ...rest }) => {
+  const column = {
+    name: { iter: 'name', name: 'Имя' },
+    qualities: { name: 'Качества' },
+    profession: { iter: 'profession.name', name: 'Профессия' },
+    completedMeetings: { iter: 'completedMeetings', name: 'Встретился, раз' },
+    rate: { iter: 'rate', name: 'Оценка' },
+    bookmark: { iter: 'bookmark', name: 'Избранное' },
+    delete: {},
+  };
 
-Users.propTypes = {
-  users: PropTypes.arrayOf(PropTypes.shape()).isRequired,
+  return <Table {...rest} column={column} />;
 };
 
 export default Users;

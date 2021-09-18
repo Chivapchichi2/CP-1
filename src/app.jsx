@@ -30,8 +30,7 @@ const App = () => {
     setUsers(
       users.map(user => {
         if (user._id === id) {
-          // eslint-disable-next-line
-          user.status = !user.status;
+          return { ...user, status: !user.status };
         }
         return user;
       }),
@@ -42,20 +41,26 @@ const App = () => {
     e.preventDefault();
     setCurrentPage(+e.target.textContent);
   };
+
   const getPartOfUsers = () => {
     const filteredUsers = activeItem
       ? users.filter(
           el => JSON.stringify(el.profession) === JSON.stringify(activeItem),
         )
       : users;
+
     totalPages = Math.ceil(filteredUsers.length / paginationOption);
+
     const partOfUsers = [...filteredUsers].splice(
       (currentPage - 1) * paginationOption,
       paginationOption,
     );
+
     if (!partOfUsers.length) setCurrentPage(currentPage - 1);
+
     return partOfUsers;
   };
+
   const handleItemSelect = item => {
     setActiveItem(item);
     setCurrentPage(1);
