@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 import Api from './API';
-import Users from './components/users';
+import Table from './components/table';
 import SearchStatus from './components/searchStatus';
 import Pagination from './components/pagination';
 import GroupList from './components/groupList';
@@ -19,7 +19,7 @@ const App = () => {
     Api.professions.fetchAll().then(setProfession);
   }, []);
 
-  const paginationOption = 2;
+  const paginationOption = 4;
   let totalPages = Math.ceil(users.length / paginationOption);
 
   const handleDelete = id => {
@@ -69,7 +69,7 @@ const App = () => {
   return (
     <div className="d-flex flex-column">
       <div className="d-flex flex-shrink-0 p-3">
-        {profession && (
+        {profession && users.length > 0 && (
           <GroupList
             items={profession}
             onItemSelect={handleItemSelect}
@@ -78,9 +78,9 @@ const App = () => {
         )}
         <div className="d-flex flex-column ms-5">
           <SearchStatus length={users.length} />
-          {users?.length > 0 && (
-            <Users
-              users={getPartOfUsers()}
+          {users.length > 0 && (
+            <Table
+              data={getPartOfUsers()}
               onDelete={handleDelete}
               onStatusClick={handleToggleBookMarc}
             />

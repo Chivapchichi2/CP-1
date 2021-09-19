@@ -1,32 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import User from '../user';
+import Thead from './thead';
+import Tbody from './tbody';
+import BookMark from '../bookMark';
 
-const Table = ({ users, column, ...rest }) => (
-  <table className="table">
-    <thead>
-      <tr>
-        <th scope="col">Имя</th>
-        <th scope="col">Качества</th>
-        <th scope="col">Профессия</th>
-        <th scope="col">Встретился, раз</th>
-        <th scope="col">Оценка</th>
-        <th scope="col">Избранное</th>
-        <th scope="col" aria-label="delete button" />
-      </tr>
-    </thead>
-    <tbody>
-      {users.map(user => (
-        <User key={user._id} {...rest} {...user} />
-      ))}
-    </tbody>
-  </table>
-);
+const Table = ({ onStatusClick, ...rest }) => {
+  const columns = {
+    name: { path: 'name', name: 'Имя' },
+    qualities: { name: 'Качества' },
+    profession: { path: 'profession.name', name: 'Профессия' },
+    completedMeetings: { path: 'completedMeetings', name: 'Встретился, раз' },
+    rate: { path: 'rate', name: 'Оценка' },
+    bookmark: {
+      path: 'bookmark',
+      name: 'Избранное',
+      component: ({ _id, status }) => (
+        <BookMark status={status} onStatus={() => onStatusClick(_id)} />
+      ),
+    },
+    delete: { component: 'del' },
+  };
+
+  return (
+    <table className="table">
+      <Thead columns={columns} {...rest} />
+      <Tbody columns={columns} {...rest} />
+    </table>
+  );
+};
 
 Table.propTypes = {
-  users: PropTypes.arrayOf(PropTypes.shape()).isRequired,
-  column: PropTypes.shape(PropTypes.shape()).isRequired,
+  onStatusClick: PropTypes.func.isRequired,
 };
 
 export default Table;
