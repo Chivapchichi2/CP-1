@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import _ from 'lodash';
 
 import Api from './API';
 import Table from './components/table';
@@ -11,6 +12,7 @@ const App = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [profession, setProfession] = useState();
   const [activeItem, setActiveItem] = useState();
+  const [sortBy, setSortBy] = useState({ iter: '', order: 'asc' });
 
   useEffect(() => {
     Api.users.fetchAll().then(setUsers);
@@ -42,6 +44,10 @@ const App = () => {
     setCurrentPage(+e.target.textContent);
   };
 
+  const handleSort = item => {
+    setSortBy(item);
+  };
+
   const getPartOfUsers = () => {
     const filteredUsers = activeItem
       ? users.filter(
@@ -51,13 +57,22 @@ const App = () => {
 
     totalPages = Math.ceil(filteredUsers.length / paginationOption);
 
-    const partOfUsers = [...filteredUsers].splice(
+    const sortedUsers = sortBy.iter
+      ? _.orderBy(filteredUsers, [sortBy.iter], [sortBy.order])
+      : filteredUsers;
+
+    const partOfUsers = [...sortedUsers].splice(
       (currentPage - 1) * paginationOption,
       paginationOption,
     );
 
-    if (!partOfUsers.length) setCurrentPage(currentPage - 1);
-
+    if (!partOfUsers.length && currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+      if (sortedUsers.length === 0) {
+        setCurrentPage(1);
+        return users;
+      }
+    }
     return partOfUsers;
   };
 
@@ -83,6 +98,8 @@ const App = () => {
               data={getPartOfUsers()}
               onDelete={handleDelete}
               onStatusClick={handleToggleBookMarc}
+              onSort={handleSort}
+              currentSort={sortBy}
             />
           )}
           <div className="d-flex justify-content-center">
