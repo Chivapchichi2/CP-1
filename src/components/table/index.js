@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import Thead from './thead';
 import Tbody from './tbody';
-import BookMark from '../bookMark';
-import Qualities from '../qualities';
+import BookMark from '../users/bookMark';
+import Qualities from '../users/qualities';
 
 const Table = ({ onStatusClick, onDelete, currentSort, onSort, ...rest }) => {
   const columns = {
@@ -17,7 +17,7 @@ const Table = ({ onStatusClick, onDelete, currentSort, onSort, ...rest }) => {
     completedMeetings: { path: 'completedMeetings', name: 'Встретился, раз' },
     rate: { path: 'rate', name: 'Оценка' },
     bookmark: {
-      path: 'bookmark',
+      path: 'status',
       name: 'Избранное',
       component: ({ _id, status }) => (
         <BookMark status={status} onStatus={() => onStatusClick(_id)} />
@@ -49,7 +49,12 @@ const Table = ({ onStatusClick, onDelete, currentSort, onSort, ...rest }) => {
 
   return (
     <table className="table">
-      <Thead columns={columns} onSort={handleSort} {...rest} />
+      <Thead
+        columns={columns}
+        onSort={handleSort}
+        currentSort={currentSort}
+        {...rest}
+      />
       <Tbody columns={columns} {...rest} />
     </table>
   );
