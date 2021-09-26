@@ -22,7 +22,7 @@ const User = ({ id }) => {
     completedMeetings,
     rate,
   }) => (
-    <div>
+    <div className="ms-5 mt-2">
       <h2>{name}</h2>
       <h3>Профессия: {profession.name}</h3>
       <Qualities qualities={qualities} />

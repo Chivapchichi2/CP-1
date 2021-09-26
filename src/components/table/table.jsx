@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import Thead from './thead/thead';
@@ -8,7 +9,11 @@ import Qualities from '../users/qualities';
 
 const Table = ({ onStatusClick, onDelete, currentSort, onSort, ...rest }) => {
   const columns = {
-    name: { path: 'name', name: 'Имя' },
+    name: {
+      path: 'name',
+      name: 'Имя',
+      component: ({ _id, name }) => <Link to={`/users/${_id}`}>{name}</Link>,
+    },
     qualities: {
       name: 'Качества',
       component: ({ qualities }) => <Qualities qualities={qualities} />,
