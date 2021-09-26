@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Thead from './thead';
-import Tbody from './tbody';
+import Thead from './thead/thead';
+import Tbody from './tbody/tbody';
 import BookMark from '../users/bookMark';
 import Qualities from '../users/qualities';
 
