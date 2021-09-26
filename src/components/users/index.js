@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import _ from 'lodash';
 
 import Api from '../../API';
-import Table from '../table';
+import Table from '../table/table';
 import SearchStatus from './searchStatus';
 import Pagination from './pagination';
 import GroupList from './groupList';
