@@ -13,6 +13,7 @@ const Users = () => {
   const [profession, setProfession] = useState();
   const [activeItem, setActiveItem] = useState();
   const [sortBy, setSortBy] = useState({ iter: '', order: 'asc' });
+  const [filter, setFilter] = useState('');
 
   useEffect(() => {
     Api.users.fetchAll().then(setUsers);
@@ -53,7 +54,9 @@ const Users = () => {
       ? users.filter(
           el => JSON.stringify(el.profession) === JSON.stringify(activeItem),
         )
-      : users;
+      : users.filter(el =>
+          JSON.stringify(el.name).toLowerCase().includes(filter.toLowerCase()),
+        );
 
     totalPages = Math.ceil(filteredUsers.length / paginationOption);
 
@@ -73,15 +76,21 @@ const Users = () => {
         return users;
       }
     }
-    return partOfUsers;
+    return [partOfUsers, sortedUsers];
   };
 
   const handleItemSelect = item => {
+    setFilter('');
     setActiveItem(item);
     setCurrentPage(1);
     if (!item) {
       setSortBy({ iter: '', order: 'asc' });
     }
+  };
+
+  const handleFilterChange = ({ target }) => {
+    handleItemSelect(null);
+    setFilter(target.value);
   };
 
   return (
@@ -95,10 +104,19 @@ const Users = () => {
           />
         )}
         <div className="d-flex flex-column ms-5">
-          <SearchStatus length={users.length} />
+          <SearchStatus length={getPartOfUsers()[1].length} />
+
+          <input
+            value={filter}
+            onChange={handleFilterChange}
+            placeholder="Search..."
+            className="border border-primary rounded fs-4 form-control"
+            type="text"
+          />
+
           {users.length > 0 && (
             <Table
-              data={getPartOfUsers()}
+              data={getPartOfUsers()[0]}
               onDelete={handleDelete}
               onStatusClick={handleToggleBookMarc}
               onSort={handleSort}
